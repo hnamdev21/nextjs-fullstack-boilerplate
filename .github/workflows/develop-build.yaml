@@ -1,0 +1,45 @@
+name: Docker develop build
+
+on:
+  push:
+    branches:
+      - "develop"
+  pull_request:
+    branches:
+      - "develop"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20.17.0"
+      - name: Create .env file
+        run: |
+          echo ENVIRONMENT=development >> .env
+          echo ANALYZE=false >> .env
+          echo BASE_DOMAIN_URL=${{ secrets.BASE_DOMAIN_URL_DEVELOPMENT }} >> .env
+          echo DB_URI=${{ secrets.DB_URI_DEVELOPMENT }} >> .env
+          echo DB_PASSWORD=${{ secrets.DB_PASSWORD_DEVELOPMENT }} >> .env
+          echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET_DEVELOPMENT }} >> .env
+          echo GITHUB_CLIENT_ID=${{ secrets.GIT_CLIENT_ID_DEVELOPMENT }} >> .env
+          echo GITHUB_CLIENT_SECRET=${{ secrets.GIT_CLIENT_SECRET_DEVELOPMENT }} >> .env
+          echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID_DEVELOPMENT }} >> .env
+          echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET_DEVELOPMENT }} >> .env
+          echo FACEBOOK_CLIENT_ID=${{ secrets.FACEBOOK_CLIENT_ID_DEVELOPMENT }} >> .env
+          echo FACEBOOK_CLIENT_SECRET=${{ secrets.FACEBOOK_CLIENT_SECRET_DEVELOPMENT }} >> .env
+          echo API_LOCAL_URL=${{ secrets.API_LOCAL_URL_DEVELOPMENT }} >> .env
+          echo API_STAGING_URL=${{ secrets.API_STAGING_URL_DEVELOPMENT }} >> .env
+          echo API_PRODUCTION_URL=${{ secrets.API_PRODUCTION_URL_DEVELOPMENT }} >> .env
+      - run: npm install
+      - run: npm run build
+      - run: npm run lint
+      - name: Check commit message
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+      - name: Run type check
+        run: npm run type-check
+      - name: Run lint:fix
+        run: npm run lint:fix

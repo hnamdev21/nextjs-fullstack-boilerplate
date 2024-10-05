@@ -1,0 +1,20 @@
+name: Docker cache build
+
+on:
+  push:
+    branches:
+      - "develop"
+      - "staging"
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20.17.0"
+      - run: npm ci
+      - run: npm run build

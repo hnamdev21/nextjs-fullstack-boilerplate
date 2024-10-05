@@ -1,0 +1,57 @@
+:root {
+  // Font size
+  --fs-9xl: 5.8rem;
+  --fs-8xl: 5.4rem;
+  --fs-7xl: 5rem;
+  --fs-6xl: 4.6rem;
+  --fs-5xl: 4.2rem;
+  --fs-4xl: 3.8rem;
+  --fs-3xl: 3.4rem;
+  --fs-2xl: 3rem;
+  --fs-xl: 2.6rem;
+  --fs-lg: 2.2rem;
+  --fs-md: 1.8rem;
+  --fs-base: 1.4rem;
+  --fs-sm: 1.2rem;
+  --fs-xs: 1rem;
+
+  // Font weight
+  --fw-extrabold: 900;
+  --fw-bold: 700;
+  --fw-md: 500;
+  --fw-base: 400;
+  --fw-thin: 300;
+
+  // Color
+  --color-white: #ffffff;
+  --color-light: #f5f7fa;
+  --color-gray-2: #eeeeee;
+  --color-gray: #98a2b3;
+  --color-black: #1b1b1a;
+  --color-dark: #282d31;
+  --color-dark-gray: #232323;
+  --color-dark-blue: #101828;
+  --color-night: #161515;
+  --color-primary: #f44336;
+  --color-secondary: #b71c1c;
+  --color-danger: #d92d20;
+  --color-success: #32d583;
+  --color-warning: #fec84b;
+  --color-info: #2194f3;
+
+  --color-shade-t1: #f44336;
+  --color-shade-t2: #e53935;
+  --color-shade-t3: #d32f2f;
+  --color-shade-t4: #c62828;
+  --color-shade-t5: #b71c1c;
+
+  --color-tint-t1: #ef5350;
+  --color-tint-t2: #e57373;
+  --color-tint-t3: #ef9a9a;
+  --color-tint-t4: #ffcdd2;
+  --color-tint-t5: #ffebee;
+
+  --border-input: #d1d1d1;
+
+  --transition: cubic-bezier(0.1, 0.7, 0, 1);
+}

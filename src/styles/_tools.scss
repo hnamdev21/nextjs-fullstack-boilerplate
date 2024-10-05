@@ -1,0 +1,240 @@
+@use "sass:math" as math;
+
+@function rem($px, $base: 10px) {
+  @if unitless($px) {
+    $px: $px * 1px;
+  }
+
+  @if unitless($base) {
+    $base: $base * 1px;
+  }
+
+  @return ($px / $base) * 1rem;
+}
+
+@function em($px, $base: 10px) {
+  @return math.div($px, $base) * 1em;
+}
+
+@function vh($px, $base: 800px) {
+  @return math.div($px, $base) * 100vh;
+}
+
+@function vw($px, $base: 1600px) {
+  @return math.div($px, $base) * 100vw;
+}
+
+@function px($val) {
+  @return $val * 1px;
+}
+
+@function cclamp($min, $mid, $max) {
+  @return clamp(#{rem($min)}, #{vw($mid)}, #{rem($max)});
+}
+
+@mixin fclamp($min, $mid, $max) {
+  font-size: clamp(#{rem($min)}, #{vw($mid)}, #{rem($max)});
+}
+
+@function fcLineHeight($line, $font_size) {
+  @return $line/$font_size;
+}
+
+@mixin lineHeight($line, $font_size) {
+  line-height: fcLineHeight($line, $font_size);
+}
+
+@mixin onlyMobile {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin fromTablet {
+  @media (max-width: 1199px) {
+    @content;
+  }
+}
+
+@mixin min-tablet {
+  @media (min-width: theme("screens.sm")) {
+    @content;
+  }
+}
+
+@mixin min-tabletWide {
+  @media (min-width: theme("screens.md")) {
+    @content;
+  }
+}
+
+@mixin pcSmall {
+  @media (min-width: theme("screens.lg")) {
+    @content;
+  }
+}
+
+@mixin pcMid {
+  @media (min-width: theme("screens.xl")) {
+    @content;
+  }
+}
+
+@mixin fixLayoutShift($width, $height) {
+  &:before {
+    content: "";
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: math.div($height, $width) * 100%;
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+@mixin backdrop($color) {
+  @supports (
+    backdrop-filter: blur(30px) or
+      (
+        -webkit-backdrop-filter: blur(30px),
+      )
+  ) {
+    backdrop-filter: blur(10px);
+  }
+
+  @supports not (
+    backdrop-filter: blur(30px) or
+      (
+        -webkit-backdrop-filter: blur(30px),
+      )
+  ) {
+    background-color: rgba($color, 0.5);
+  }
+}
+
+@function vhMathDiv($px, $base) {
+  @return math.div($px, $base) * 100;
+}
+
+@function fixXvhMobile($vhInput) {
+  @return calc(var(--vh) * #{$vhInput});
+}
+
+@function vh100Mobile() {
+  @return calc(var(--vh) * 100);
+}
+
+@function vhOnMobile($px, $base: 1008px) {
+  @return calc(var(--vh) * #{vhMathDiv($px, $base)});
+}
+
+@mixin isHover {
+  @media (any-hover: hover) {
+    @content;
+  }
+}
+
+@mixin notHover {
+  @media (any-hover: none) {
+    @content;
+  }
+}
+
+@mixin placeholder-input {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+
+  &::-moz-placeholder {
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+
+  &:-moz-placeholder {
+    @content;
+  }
+}
+
+@mixin overrideAutocomplete($bgColor: white, $color: black) {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    //border: 1px solid $bgColor;
+    -webkit-text-fill-color: $color;
+    -webkit-box-shadow: 0 0 0 1000px $bgColor inset !important;
+    box-shadow: 0 0 0 1000px $bgColor inset !important;
+  }
+}
+
+@function calcAuto($min-vw, $max-vw, $min-font-size, $max-font-size) {
+  @return calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+}
+
+@mixin fontCalc($min-vw, $max-vw, $min-font-size, $max-font-size) {
+  font-size: calcAuto($min-vw, $max-vw, $min-font-size, $max-font-size);
+}
+
+@function strip-unit($value) {
+  @return math.div($value, ($value * 0 + 1));
+}
+
+@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-font-size);
+  $u4: unit($max-font-size);
+
+  @if $u1==$u2 and $u1==$u3 and $u1==$u4 {
+    & {
+      font-size: $min-font-size;
+
+      @media screen and (min-width: $min-vw) {
+        font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+      }
+
+      @media screen and (min-width: $max-vw) {
+        font-size: $max-font-size;
+      }
+    }
+  }
+}
+
+@mixin make-typography($sizes: $h1) {
+  @if map-has-key($sizes, "fs") {
+    font-size: rem(map-get($sizes, "fs"));
+  }
+
+  @if map-has-key($sizes, "lh") {
+    line-height: rem(map-get($sizes, "lh"));
+  }
+
+  @if map-has-key($sizes, "fw") {
+    font-weight: map-get($sizes, "fw");
+  }
+
+  @if map-has-key($sizes, "ls") {
+    letter-spacing: rem(map-get($sizes, "ls"));
+  }
+}
+
+@mixin make-typography-color() {
+  @each $key, $color in $typography-colors {
+    .#{$key} {
+      color: $color;
+    }
+  }
+}

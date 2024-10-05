@@ -1,0 +1,12 @@
+assets
+cs-options
+.next
+.husky
+public
+node_modules
+vite.config.ts
+next.config.js
+package-lock.json
+yarn.lock
+**/*.snap
+**/*.md

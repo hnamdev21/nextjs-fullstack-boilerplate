@@ -1,0 +1,35 @@
+name: Docker production build
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20.17.0"
+      - name: Create .env file
+        run: |
+          echo ENVIRONMENT=production >> .env
+          echo ANALYZE=true >> .env
+          echo BASE_DOMAIN_URL=${{ secrets.BASE_DOMAIN_URL_PRODUCTION }} >> .env
+          echo DB_URI=${{ secrets.DB_URI_PRODUCTION }} >> .env
+          echo DB_PASSWORD=${{ secrets.DB_PASSWORD_PRODUCTION }} >> .env
+          echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET_PRODUCTION }} >> .env
+          echo GITHUB_CLIENT_ID=${{ secrets.GIT_CLIENT_ID_PRODUCTION }} >> .env
+          echo GITHUB_CLIENT_SECRET=${{ secrets.GIT_CLIENT_SECRET_PRODUCTION }} >> .env
+          echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID_PRODUCTION }} >> .env
+          echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET_PRODUCTION }} >> .env
+          echo FACEBOOK_CLIENT_ID=${{ secrets.FACEBOOK_CLIENT_ID_PRODUCTION }} >> .env
+          echo FACEBOOK_CLIENT_SECRET=${{ secrets.FACEBOOK_CLIENT_SECRET_PRODUCTION }} >> .env
+          echo API_LOCAL_URL=${{ secrets.API_LOCAL_URL_PRODUCTION }} >> .env
+          echo API_STAGING_URL=${{ secrets.API_STAGING_URL_PRODUCTION }} >> .env
+          echo API_PRODUCTION_URL=${{ secrets.API_PRODUCTION_URL_PRODUCTION }} >> .env
+      - run: npm install
+      - run: npm run build

@@ -1,0 +1,27 @@
+{
+  "Notification": {
+    "welcome": "Welcome {name}"
+  },
+  "HomePage": {
+    "title": "Home"
+  },
+  "LoginPage": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "or": "Or"
+  },
+  "RegisterPage": {
+    "title": "Register"
+  },
+  "ProfilePage": {
+    "title": "{name}'s profile",
+    "edit": "Edit",
+    "follow": "Follow",
+    "unfollow": "Unfollow",
+    "block": "Block",
+    "unblock": "Unblock",
+    "followers": "{count, plural, =0 {No followers} =1 {1 follower} other {# followers}}"
+  }
+}

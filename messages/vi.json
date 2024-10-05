@@ -1,0 +1,27 @@
+{
+  "Notification": {
+    "welcome": "Chào mừng {name}"
+  },
+  "HomePage": {
+    "title": "Trang chủ"
+  },
+  "LoginPage": {
+    "title": "Đăng nhập",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "login": "Đăng nhập",
+    "or": "Hoặc"
+  },
+  "RegisterPage": {
+    "title": "Đăng ký"
+  },
+  "ProfilePage": {
+    "title": "Hồ sơ của {name}",
+    "edit": "Chỉnh sửa",
+    "follow": "Theo dõi",
+    "unfollow": "Bỏ theo dõi",
+    "block": "Chặn",
+    "unblock": "Bỏ chặn",
+    "followers": "{count, plural, =0 {Không có người theo dõi} =1 {1 người theo dõi} other {# người theo dõi}}"
+  }
+}
