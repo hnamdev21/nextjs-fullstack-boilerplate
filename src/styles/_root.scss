@@ -18,22 +18,22 @@
   // Font weight
   --fw-extrabold: 900;
   --fw-bold: 700;
-  --fw-md: 500;
-  --fw-base: 400;
+  --fw-md: 600;
+  --fw-base: 500;
   --fw-thin: 300;
 
   // Color
   --color-white: #ffffff;
   --color-light: #f5f7fa;
   --color-gray-2: #eeeeee;
-  --color-gray: #98a2b3;
+  --color-gray: #9f9f9f;
   --color-black: #1b1b1a;
   --color-dark: #282d31;
   --color-dark-gray: #232323;
   --color-dark-blue: #101828;
   --color-night: #161515;
-  --color-primary: #f44336;
-  --color-secondary: #b71c1c;
+  --color-primary: #dfa41a;
+  --color-secondary: #f9f1e7;
   --color-danger: #d92d20;
   --color-success: #32d583;
   --color-warning: #fec84b;
@@ -52,6 +52,7 @@
   --color-tint-t5: #ffebee;
 
   --border-input: #d1d1d1;
+  --border-radius: 1rem;
 
   --transition: cubic-bezier(0.1, 0.7, 0, 1);
 }
